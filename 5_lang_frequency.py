@@ -3,25 +3,24 @@ import re
 from collections import Counter
 
 
-def load_data(filepath):
+def get_strings_from_file(filepath):
     if not os.path.exists(filepath):
         return None
     with open(filepath, "r") as file_handler:
         return file_handler.read().lower()
 
 
-def count_words(data):
+def count_frequent_of_words(string_list):
     quantity_of_encounter_words = 10
-    words = re.findall(r"\w+", data)
-    return Counter(words).most_common(quantity_of_encounter_words)
+    word_list = re.findall(r"\w+", string_list)
+    return Counter(word_list).most_common(quantity_of_encounter_words)
 
 
-def print_words(data):
+def print_rating(counter_list):
     print("The most frequent words in this text is:")
-    for word_number, word in enumerate(data):
+    for word_number, word in enumerate(counter_list):
         print("{}) \"{}\" Amount = {}".format(word_number+1, word[0], word[1]))
 
 if __name__ == "__main__":
-    file = load_data(input("Enter the path to the file:"))
-    print_words(count_words(file))
-    
+    string_list = get_strings_from_file(input("Enter the path to the file:"))
+    print_rating(count_frequent_of_words(string_list))
