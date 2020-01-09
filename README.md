@@ -1,6 +1,23 @@
-# 5_lang_frequency
+# Lang_frequency
 
-После запуска программы введите полный путь до текстового файла.
-Пример: C:\Программирование\python\devman\myfile.txt
-В результате получаете список из 10 самых распространенных слов в этом файле.
+### Description
 
+This console programm helps to count frequency of words in file.
+
+### Requirements
+
+* Python 3.*
+
+### Installation
+
+Clone the repository to computer
+
+```bash
+git clone https://github.com/Talkytitan5127/5_lang_frequency.git
+```
+
+### Usage
+
+```bash
+python3 5_lang_frequency.py --filepath /path/to/file
+```
