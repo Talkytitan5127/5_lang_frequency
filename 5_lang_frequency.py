@@ -1,26 +1,39 @@
 import os
 import re
+import argparse
 from collections import Counter
 
 
-def get_strings_from_file(filepath):
+def get_content_from_file(filepath):
     if not os.path.exists(filepath):
-        return None
+        raise FileExistsError('File doesn\'t exist')
     with open(filepath, "r") as file_handler:
         return file_handler.read().lower()
 
 
-def count_frequent_of_words(string_list):
+def count_frequent_of_words(content: str):
     quantity_of_encounter_words = 10
-    word_list = re.findall(r"\w+", string_list)
+    word_list = re.findall(r"\w+", content)
     return Counter(word_list).most_common(quantity_of_encounter_words)
 
 
-def print_rating(counter_list):
+def print_rating(most_frequent_words):
     print("The most frequent words in this text is:")
-    for word_number, word in enumerate(counter_list):
-        print("{}) \"{}\" Amount = {}".format(word_number+1, word[0], word[1]))
+    for index, data in enumerate(most_frequent_words, 1):
+        word, amount = data
+        print("{}) \"{}\" Amount = {}".format(index, word, amount))
+
+
+def create_argparser():
+    parser = argparse.ArgumentParser(description='Get most frequent words in file')
+    parser.add_argument('--filepath', type=str, help='path to your file')
+    return parser
+
 
 if __name__ == "__main__":
-    string_list = get_strings_from_file(input("Enter the path to the file:"))
-    print_rating(count_frequent_of_words(string_list))
+    parser = create_argparser()
+    args = parser.parse_args()
+
+    content = get_content_from_file(args.filepath)
+    most_frequent_words = count_frequent_of_words(content)
+    print_rating(most_frequent_words)
