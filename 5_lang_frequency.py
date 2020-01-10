@@ -11,7 +11,7 @@ def get_content_from_file(filepath):
         return file_handler.read().lower()
 
 
-def count_frequent_of_words(content: str):
+def get_most_frequent_of_words(content: str):
     quantity_of_encounter_words = 10
     word_list = re.findall(r"\w+", content)
     return Counter(word_list).most_common(quantity_of_encounter_words)
@@ -19,8 +19,7 @@ def count_frequent_of_words(content: str):
 
 def print_rating(most_frequent_words):
     print("The most frequent words in this text is:")
-    for index, data in enumerate(most_frequent_words, 1):
-        word, amount = data
+    for index, (word, amount) in enumerate(most_frequent_words, 1):
         print("{}) \"{}\" Amount = {}".format(index, word, amount))
 
 
@@ -35,5 +34,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     content = get_content_from_file(args.filepath)
-    most_frequent_words = count_frequent_of_words(content)
+    most_frequent_words = get_most_frequent_of_words(content)
     print_rating(most_frequent_words)
